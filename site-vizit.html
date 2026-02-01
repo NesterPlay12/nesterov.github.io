@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Имя Фамилия | Профессия</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== ГЕРОЙ-СЕКЦИЯ ===== */
+        .hero {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 100px 0 80px;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -150px;
+            right: -100px;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            bottom: -100px;
+            left: -50px;
+        }
+        
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.2);
+            margin: 0 auto 30px;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #6a11cb;
+            font-weight: bold;
+        }
+        
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.85;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ===== ССЫЛКИ ===== */
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .link-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .link-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .link-btn i {
+            font-size: 1.2rem;
+        }
+        
+        /* ===== ОБО МНЕ ===== */
+        .about {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .skills {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .skill-item {
+            margin-bottom: 25px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: #eef2f7;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border-radius: 5px;
+        }
+        
+        /* ===== ПРОЕКТЫ ===== */
+        .projects {
+            padding: 80px 0;
+            background: #f8fafc;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .project-img {
+            height: 180px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .project-desc {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .project-link {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* ===== КОНТАКТЫ ===== */
+        .contact {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            width: 185px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .contact-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== ФУТЕР ===== */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: #95a5a6;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <div class="avatar">
+              <div class="avatar-text"></div>
+              <img src="https://img.hhcdn.ru/photo/815709230.jpeg?t=1770036172&h=ogYwngyAN1aU000K2Ahfnw" alt="Ваше фото" class="avatar-img">
+            </div>
+            
+            <h1>Илья Нестеров</h1>
+            <div class="subtitle">Веб-разработчик & Python developer</div>
+            <p class="tagline">Создаю современные цифровые продукты с фокусом на пользовательский опыт и чистый код</p>
+            
+            <div class="links">
+                <a href="#projects" class="link-btn"><i class="fas fa-briefcase"></i> Проекты</a>
+                <a href="#contact" class="link-btn"><i class="fas fa-envelope"></i> Контакты</a>
+                <a href="https://hh.ru/resume_converter/%D0%9D%D0%B5%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20%D0%98%D0%BB%D1%8C%D1%8F%20%D0%AF%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%BE%D0%B2%D0%B8%D1%87.doc?hash=eba7b905ff0f2bfdaa0039ed1f3173797a6f45&type=rtf&hhtmFrom=resume_list&hhtmSource=resume" class="link-btn" download><i class="fas fa-download"></i> Резюме</a>
+                <a href="https://github.com/NesterPlay12/education" class="link-btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ОБО МНЕ -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Привет! Я — frontend-разработчик, специализируюсь на создании адаптивных и быстрых веб-интерфейсов для лендингов, магазинов и маркетплейсов, где чистая вёрстка сочетается с пониманием бизнес-задач. Владею HTML5/CSS3 (Flexbox, Grid), JavaScript для интерактивных элементов и Git для командной работы.</p>
+                    <p>Эффективно интегрирую фронтенд с бэкендом благодаря знанию SQL и работы с API. Активно расширяю стек, изучая Python, чтобы предлагать клиентам комплексные решения и закрывать полный цикл задач — от макета до публикации.</p>
+                    <p>Ищу задачи, где важны техническая грамотность и внимание к деталям. Гарантирую прозрачность коммуникации, соблюдение сроков и адаптацию под процессы заказчика. Нацелен на проекты, где мой вклад принесёт измеримую пользу.</p>
+                </div>
+                
+                <div class="skills">
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML/CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>SQL</span>
+                            <span>40%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 40%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 25%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ПРОЕКТЫ -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Мои проекты</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Game marketplace
+                          (analog of Steam)</h3>
+                        <p class="project-desc">Игровой маркетплейс на мотив популярного "Steam" с возможностью добавлять в корзину, желаемое, рабочим поиском и фильтрацией по жанрам и цене, также оформление заказа.</p>
+                        <a href="https://nesterplay12.github.io/nesterov.github.io/steam.html" class="project-link">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-calendar-minus"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">NewYear Calendar</h3>
+                        <p class="project-desc">Новогодний календарь со списком дел, анимацией снега и праздничной музыкой при нажатии на кнопку.</p>
+                        <a href="https://nesterplay12.github.io/nesterov.github.io/new_year_calendar" class="project-link">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">DedMoroz order</h3>
+                        <p class="project-desc">3х страничный сайт для заказа деда мороза. С анимацией падающих снежинок, встроенными видеороликами и формой для заказа.</p>
+                        <a href="https://nesterplay12.github.io/nesterov.github.io/dedmoroz/dedmoroz_main.html" class="project-link">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- КОНТАКТЫ -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь со мной</h2>
+            <p>Всегда открыт для новых проектов и интересных предложений</p>
+            
+            <div class="contact-links">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Email</h3>
+                        <p>nesterov.ilya.9509136674
+                          @gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Телефон</h3>
+                        <p>+7 (950) 913-66-74</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Telegram</h3>
+                        <p>@nester_play</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>GitHub</h3>
+                        <p>github.com/NesterPlay12</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container">
+            <h2>Нестеров Илья Ярославович</h2>
+            <div class="footer-links">
+                <a href="#about">Обо мне</a>
+                <a href="#projects">Проекты</a>
+                <a href="#contact">Контакты</a>
+                <a href="https://hh.ru/resume_converter/%D0%9D%D0%B5%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20%D0%98%D0%BB%D1%8C%D1%8F%20%D0%AF%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%BE%D0%B2%D0%B8%D1%87.doc?hash=eba7b905ff0f2bfdaa0039ed1f3173797a6f45&type=rtf&hhtmFrom=resume_list&hhtmSource=resume" download>Резюме</a>
+            </div>
+            <p class="copyright">© 2024 Все права защищены. Сайт-визитка</p>
+        </div>
+    </footer>
+</body>
+</html>
